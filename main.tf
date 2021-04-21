@@ -6,6 +6,7 @@ locals {
 }
 
 provider "azurerm" {
+  features {}
   subscription_id = "${var.azure_subscription_id}"
   client_id       = "${var.azure_client_id}"
   client_secret   = "${var.azure_client_secret}"
@@ -111,8 +112,6 @@ resource "azurerm_role_assignment" "main" {
 resource "azurerm_dns_zone" "private" {
   name                           = "${local.cluster_domain}"
   resource_group_name            = "${azurerm_resource_group.main.name}"
-  zone_type                      = "Private"
-  resolution_virtual_network_ids = ["${azurerm_virtual_network.cluster_vnet.id}"]
 }
 
 resource "azurerm_virtual_network" "cluster_vnet" {
@@ -164,7 +163,6 @@ data "azurerm_storage_account_sas" "ignition" {
 }
 
 resource "azurerm_storage_container" "ignition" {
-  resource_group_name   = "${azurerm_resource_group.main.name}"
   name                  = "ignition"
   storage_account_name  = "${azurerm_storage_account.ignition.name}"
   container_access_type = "private"
@@ -173,19 +171,17 @@ resource "azurerm_storage_container" "ignition" {
 resource "azurerm_storage_blob" "ignition-bootstrap" {
   name                   = "bootstrap.ign"
   source                 = "ignition-files/bootstrap.ign"
-  resource_group_name    = "${azurerm_resource_group.main.name}"
   storage_account_name   = "${azurerm_storage_account.ignition.name}"
   storage_container_name = "${azurerm_storage_container.ignition.name}"
-  type                   = "block"
+  type                   = "Block"
 }
 
 resource "azurerm_storage_blob" "ignition-master" {
   name                   = "master.ign"
   source                 = "ignition-files/master.ign"
-  resource_group_name    = "${azurerm_resource_group.main.name}"
   storage_account_name   = "${azurerm_storage_account.ignition.name}"
   storage_container_name = "${azurerm_storage_container.ignition.name}"
-  type                   = "block"
+  type                   = "Block"
 }
 
 data "ignition_config" "master_redirect" {
@@ -203,10 +199,9 @@ data "ignition_config" "bootstrap_redirect" {
 resource "azurerm_storage_blob" "ignition-worker" {
   name                   = "worker.ign"
   source                 = "ignition-files/worker.ign"
-  resource_group_name    = "${azurerm_resource_group.main.name}"
   storage_account_name   = "${azurerm_storage_account.ignition.name}"
   storage_container_name = "${azurerm_storage_container.ignition.name}"
-  type                   = "block"
+  type                   = "Block"
 }
 
 

@@ -17,7 +17,6 @@ resource "azurerm_lb" "internal" {
 }
 
 resource "azurerm_lb_backend_address_pool" "internal_lb_controlplane_pool" {
-  resource_group_name = "${var.resource_group_name}"
   loadbalancer_id     = "${azurerm_lb.internal.id}"
   name                = "${var.cluster_id}-internal-controlplane"
 }

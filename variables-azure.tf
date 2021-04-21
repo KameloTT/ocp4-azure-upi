@@ -9,15 +9,15 @@ EOF
 }
 
 variable "azure_region" {
-  type = "string"
+  type = string
 }
 
 variable "azure_bootstrap_vm_type" {
-  type = "string"
+  type = string
 }
 
 variable "azure_master_vm_type" {
-  type = "string"
+  type = string
 }
 
 variable "azure_extra_tags" {
@@ -33,46 +33,46 @@ default = {}
 }
 
 variable "azure_master_root_volume_size" {
-type        = "string"
+type        = string
 }
 
 variable "azure_base_domain_resource_group_name" {
-type        = "string"
+type        = string
 }
 
 variable "azure_image_id" {
-type        = "string"
+type        = string
 }
 
 variable "machine_cidr" {
-  type        = "string"
+  type        = string
 }
 
 variable "cluster_id" {
-  type        = "string"
+  type        = string
 }
 
 variable "master_count" {
-  type        = "string"
+  type        = string
 }
 
 variable "base_domain" {
-  type        = "string"
+  type        = string
 }
 
 variable "azure_subscription_id" {
-  type        = "string"
+  type        = string
 }
 
 variable "azure_client_id" {
-  type        = "string"
+  type        = string
 }
 
 variable "azure_client_secret" {
-  type        = "string"
+  type        = string
 }
 
 variable "azure_tenant_id" {
-  type        = "string"
+  type        = string
 }
 
